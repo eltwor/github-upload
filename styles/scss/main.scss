@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import 'variables.scss';
+
+//fonts
+@import url('https://fonts.googleapis.com/css2?family=Loved+by+the+King&display=swap');
+//variables
+$loved-font: 'Loved by the King', cursive;
+
+// All set to zero
+* {
+  text-align: center;
+
+  margin: 0;
+  padding: 0;
+  //firefox friendly scroll
+  scrollbar-width: thin;
+}
+
+// Chrome/Edge/Safari friendly Scroll
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+// WebPage
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden; /*makes the body non-scrollable (we will add scrolling to the sidebar and main content containers)*/
+  display: flex; /*enables flex content for its children*/
+  box-sizing: border-box;
+  background-color: $light;
+}
+
+.column {
+  width: 100%;
+  height: 100%; /*allows both columns to span the full height of the browser window*/
+  display: flex;
+  flex-direction: column; /*places the left and right headers above the bottom content*/
+}
+
+// Top of Page Navi
+.header {
+  flex-shrink: 0;
+  background: $accent;
+  color: $light;
+
+  //title
+  & p {
+    padding: 1rem;
+    font-family: $loved-font;
+    font-size: 45px;
+  }
+}
+.nav {
+  background: transparent;
+  padding: 20px;
+}
+
+.round {
+  min-width: 3rem;
+  max-width: 10rem;
+  text-decoration: none;
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  border-style: none;
+  color: white;
+  background-color: $accent;
+  border-radius: 100%;
+  overflow: none;
+  text-align: center;
+  padding: 0;
+  transition: background 150ms ease;
+  &::before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 100%;
+  }
+
+  &:active {
+    background-color: darken($accent, 7);
+  }
+}
+
+span {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 90%;
+}
+
+// Container for Flex
+.main {
+  width: 80%;
+  margin-top: 1rem;
+  padding: 1rem;
+  flex-grow: 1; /*ensures that the container will take up the full height of the parent container*/
+  overflow-y: auto; /*adds scroll to this container*/
+  overflow-x: hidden;
+  align-self: center;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+}
+
+//Boxes
+.square {
+  position: relative;
+  flex: 1 0 22rem;
+  margin: 1rem;
+  min-height: 350px;
+  max-height: 450px;
+  background-color: $accent;
+  color: $light;
+  border-radius: 0.75rem;
+  transition: all 350ms ease;
+  box-shadow: 0 2.5rem 0 -2rem transparent;
+  overflow: hidden;
+
+  $squareSelector: &;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: 0 2.5rem 2rem -2rem hsla(200, 50%, 20%, 0.4);
+    background-position-y: -10%;
+  }
+
+  //Flex Main
+  &--container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -1rem -1rem;
+    padding-bottom: 3rem;
+    overflow: auto;
+
+    //Center Overflow Boxes on Responsive Size
+    @media screen and (max-width: 990px) {
+      justify-content: center;
+    }
+  }
+
+  &--image {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 125%;
+    height: 135%;
+    object-fit: cover;
+    transform: translateX(-50%);
+    transition: all 350ms ease;
+    z-index: 0;
+
+    #{$squareSelector}:hover & {
+      transform: translateX(-50%) translateY(-1.5rem);
+      filter: blur(1.5px) saturate(50%);
+    }
+  }
+
+  &--content {
+    box-sizing: border-box;
+    position: relative;
+    margin: 0 auto;
+    max-width: 275px;
+    top: calc(100% - 5.5rem);
+    transition: all 350ms ease;
+
+    #{$squareSelector}:hover & {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    * + * {
+      margin-top: 2.75em;
+      transition: all 350ms ease;
+      opacity: 0;
+
+      #{$squareSelector}:hover & {
+        margin-top: 1.25rem;
+        opacity: 1;
+      }
+    }
+  }
+
+  &--title {
+    font-weight: bold;
+    font-size: 1.75rem;
+    margin-top: 1.25rem;
+  }
+
+  &--description {
+    font-size: 1.05rem;
+    color: rgba($light, 0.8);
+  }
+
+  &--button {
+    font-size: 1.05rem;
+    padding: 0.45em 0.75em;
+    color: rgba($light, 0.75);
+    font-weight: bold;
+    border-radius: 0.25em;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    background-color: rgba($light, 0.15);
+
+    &:hover {
+      background-color: $accent-opaque;
+      color: $light;
+    }
+  }
+}
+
+.hamburger {
+  & {
+    text-decoration: none;
+    display: inline-block;
+    outline: none;
+    border-style: none;
+    background-color: $accent;
+    border-radius: 50%;
+    line-height: 1;
+    transition: background 150ms ease;
+
+    &:hover {
+      background-color: darken($accent, 5);
+      cursor: pointer;
+    }
+
+    &:active {
+      background-color: darken($accent, 12);
+    }
+
+  }
+
+  &--icon {
+    user-select: none;
+    transition: transform 400ms;
+
+    .top {
+      stroke-dasharray: 40 160;
+    }
+
+    .middle {
+      stroke-dasharray: 40 142;
+      transform-origin: 50%;
+      transition: transform 400ms;
+    }
+
+    .bottom {
+      stroke-dasharray: 40 85;
+      transform-origin: 50%;
+      transition: transform 400ms, stroke-dashoffset 400ms;
+    }
+
+    &.active {
+      & {
+        transform: rotate(45deg);
+      }
+
+      .top {
+        stroke-dashoffset: -64px;
+      }
+
+      .middle {
+        transform: rotate(90deg);
+      }
+
+      .bottom {
+        stroke-dashoffset: -64px;
+      }
+    }
+  }
+}
+
+.line {
+  fill: none;
+  transition: stroke-dasharray 300ms, stroke-dashoffset 300ms;;
+  stroke: $light;
+  stroke-width: 5.5;
+  stroke-linecap: round;
+}
+

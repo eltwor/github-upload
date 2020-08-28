@@ -1,0 +1,246 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Loved+by+the+King&display=swap");
+* {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+  /*makes the body non-scrollable (we will add scrolling to the sidebar and main content containers)*/
+  display: flex;
+  /*enables flex content for its children*/
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.column {
+  width: 100%;
+  height: 100%;
+  /*allows both columns to span the full height of the browser window*/
+  display: flex;
+  flex-direction: column;
+  /*places the left and right headers above the bottom content*/
+}
+
+.header {
+  flex-shrink: 0;
+  background: #913cca;
+  color: #fff;
+}
+.header p {
+  padding: 1rem;
+  font-family: "Loved by the King", cursive;
+  font-size: 45px;
+}
+
+.nav {
+  background: transparent;
+  padding: 20px;
+}
+
+.round {
+  min-width: 3rem;
+  max-width: 10rem;
+  text-decoration: none;
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  border-style: none;
+  color: white;
+  background-color: #913cca;
+  border-radius: 100%;
+  overflow: none;
+  text-align: center;
+  padding: 0;
+  transition: background 150ms ease;
+}
+.round::before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 100%;
+}
+.round:active {
+  background-color: #7e30b2;
+}
+
+span {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 90%;
+}
+
+.main {
+  width: 80%;
+  margin-top: 1rem;
+  padding: 1rem;
+  flex-grow: 1;
+  /*ensures that the container will take up the full height of the parent container*/
+  overflow-y: auto;
+  /*adds scroll to this container*/
+  overflow-x: hidden;
+  align-self: center;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.square {
+  position: relative;
+  flex: 1 0 22rem;
+  margin: 1rem;
+  min-height: 350px;
+  max-height: 450px;
+  background-color: #913cca;
+  color: #fff;
+  border-radius: 0.75rem;
+  transition: all 350ms ease;
+  box-shadow: 0 2.5rem 0 -2rem transparent;
+  overflow: hidden;
+}
+.square:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  box-shadow: 0 2.5rem 2rem -2rem rgba(26, 60, 77, 0.4);
+  background-position-y: -10%;
+}
+.square--container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -1rem -1rem;
+  padding-bottom: 3rem;
+  overflow: auto;
+}
+@media screen and (max-width: 990px) {
+  .square--container {
+    justify-content: center;
+  }
+}
+.square--image {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 125%;
+  height: 135%;
+  object-fit: cover;
+  transform: translateX(-50%);
+  transition: all 350ms ease;
+  z-index: 0;
+}
+.square:hover .square--image {
+  transform: translateX(-50%) translateY(-1.5rem);
+  filter: blur(1.5px) saturate(50%);
+}
+.square--content {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0 auto;
+  max-width: 275px;
+  top: calc(100% - 5.5rem);
+  transition: all 350ms ease;
+}
+.square:hover .square--content {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.square--content * + * {
+  margin-top: 2.75em;
+  transition: all 350ms ease;
+  opacity: 0;
+}
+.square:hover .square--content * + * {
+  margin-top: 1.25rem;
+  opacity: 1;
+}
+.square--title {
+  font-weight: bold;
+  font-size: 1.75rem;
+  margin-top: 1.25rem;
+}
+.square--description {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+.square--button {
+  font-size: 1.05rem;
+  padding: 0.45em 0.75em;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: bold;
+  border-radius: 0.25em;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.square--button:hover {
+  background-color: rgba(145, 60, 202, 0.45);
+  color: #fff;
+}
+
+.hamburger {
+  text-decoration: none;
+  display: inline-block;
+  outline: none;
+  border-style: none;
+  background-color: #913cca;
+  border-radius: 50%;
+  line-height: 1;
+  transition: background 150ms ease;
+}
+.hamburger:hover {
+  background-color: #8433ba;
+  cursor: pointer;
+}
+.hamburger:active {
+  background-color: #702b9e;
+}
+.hamburger--icon {
+  user-select: none;
+  transition: transform 400ms;
+}
+.hamburger--icon .top {
+  stroke-dasharray: 40 160;
+}
+.hamburger--icon .middle {
+  stroke-dasharray: 40 142;
+  transform-origin: 50%;
+  transition: transform 400ms;
+}
+.hamburger--icon .bottom {
+  stroke-dasharray: 40 85;
+  transform-origin: 50%;
+  transition: transform 400ms, stroke-dashoffset 400ms;
+}
+.hamburger--icon.active {
+  transform: rotate(45deg);
+}
+.hamburger--icon.active .top {
+  stroke-dashoffset: -64px;
+}
+.hamburger--icon.active .middle {
+  transform: rotate(90deg);
+}
+.hamburger--icon.active .bottom {
+  stroke-dashoffset: -64px;
+}
+
+.line {
+  fill: none;
+  transition: stroke-dasharray 300ms, stroke-dashoffset 300ms;
+  stroke: #fff;
+  stroke-width: 5.5;
+  stroke-linecap: round;
+}
